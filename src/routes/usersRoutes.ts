@@ -1,6 +1,7 @@
 
 import { Request, Response, Router } from 'express'
 
+import AccountHelper from '../helpers/AccountHelper'
 import User from '../models/User'
 
 class UserRoutes {
@@ -15,11 +16,11 @@ class UserRoutes {
 
     setRoutes(): void {
 
-        this.router.get('/', this.getResult)
-        this.router.get('/:_id', this.getRow)
-        this.router.post('/', this.createRow)
-        this.router.put('/:_id', this.updateRow)
-        this.router.delete('/:_id', this.deleteRow)
+        this.router.get('/', AccountHelper.isAuthenticated, this.getResult)
+        this.router.get('/:_id', AccountHelper.isAuthenticated, this.getRow)
+        this.router.post('/', AccountHelper.isAuthenticated, this.createRow)
+        this.router.put('/:_id', AccountHelper.isAuthenticated, this.updateRow)
+        this.router.delete('/:_id', AccountHelper.isAuthenticated, this.deleteRow)
     }
 
     async getResult(req: Request, res: Response): Promise<void> {
