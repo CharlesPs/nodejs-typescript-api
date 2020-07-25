@@ -63,9 +63,7 @@ class AccountRoutes {
             const token = jwt.encode(user._id, config.security.passport_secret || '')
 
             res.json({
-                data: {
-                    token
-                }
+                token
             })
         } catch (error) {
             
